@@ -3,11 +3,44 @@ name: Dotnetapplication_$(Date:yyyyMMdd)_$(Rev:.r)
 trigger:
 - main
 
-pool:
-  vmImage: windows-latest
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+  pool:
+    vmImage: windows-latest
 
-steps:
-- task: VSBuild@1
-  inputs:
-    solution: '**\*.sln'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
+    steps:
+    - task: VSBuild@1
+      inputs:
+        solution: '**\*.sln'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+
+- stage: Deployment
+  jobs:
+  - job: DeploymentonAzureFuntion
+    pool:
+      vmImage: windows-latest
+
+    steps:
+
+    - powershell: "Write-Host"
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - task: AzureFunctionApp@2
+      inputs:
+        connectedServiceNameARM: 'Azure subscription 1(f4fb6362-0022-4285-bea3-8447ee34fc97)'
+        appType: 'functionApp'
+        appName: 'First-AzureFuntion'
+        package: '$(System.ArtifactsDirectory)/**/*.zip'
+        deploymentMethod: 'auto'
