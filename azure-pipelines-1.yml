@@ -1,4 +1,4 @@
-name: $(BuildDefinitionName)_$(Date:yyyyMMdd)_$(Rev:.r)
+name: Dotnetapplication_$(Date:yyyyMMdd)_$(Rev:.r)
 
 trigger:
 - main
