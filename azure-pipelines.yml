@@ -1,0 +1,12 @@
+name: $(buildDefinitionName)_$(Date:yyyyMMdd)$(rev:.r)
+trigger:
+- main
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    msbuildArg: ''
