@@ -1,0 +1,13 @@
+name: $(BuildDefinitionName)_$(Date:yyyyMMdd)_$(Rev:.r)
+
+trigger:
+- main
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
