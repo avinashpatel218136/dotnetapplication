@@ -34,7 +34,7 @@ stages:
     - task: DownloadBuildArtifacts@1
       inputs:
         buildType: 'current'
-        #buildVersionToDownload: 'latest'
+        buildVersionToDownload: 'latest'
         downloadType: 'specific'
         downloadPath: '$(System.ArtifactsDirectory)'
 
