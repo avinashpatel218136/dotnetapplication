@@ -8,7 +8,7 @@ stages:
   jobs:
   - job: Build
   pool:
-    vmImage: first-azure-mac
+    name: Default
 
     steps:
     - task: VSBuild@1
@@ -26,7 +26,7 @@ stages:
   jobs:
   - job: DeploymentonAzureFuntion
     pool:
-      vmImage: first-azure-mac
+      name: Default
 
     steps:
 
