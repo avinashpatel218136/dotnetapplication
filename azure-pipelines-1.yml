@@ -34,14 +34,14 @@ stages:
     - task: DownloadBuildArtifacts@1
       inputs:
         buildType: 'current'
+        buildVersionToDownload: 'latest'
         downloadType: 'single'
-
-        downloadPath: '\$(System.ArtifactDirectory)'
+        downloadPath: '$(System.ArtifactDirectory)'
 
     - task: AzureFunctionApp@2
       inputs:
         connectedServiceNameARM: 'Azure subscription 1(f4fb6362-0022-4285-bea3-8447ee34fc97)'
         appType: 'functionApp'
         appName: 'First-AzureFuntion'
-        package: '\$(System.ArtifactDirectory)/**/*.zip'
+        package: '$(System.ArtifactDirectory)/**/*.zip'
         deploymentMethod: 'auto'
