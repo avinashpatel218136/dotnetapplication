@@ -35,8 +35,6 @@ stages:
       inputs:
         buildType: 'current'
         downloadType: 'single'
-        definition: 'YourBuildDefinitionID'
-        buildId: 15
         downloadPath: '$(System.ArtifactDirectory)'
 
     - task: AzureFunctionApp@2
