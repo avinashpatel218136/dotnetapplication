@@ -36,6 +36,12 @@ stages:
         buildVersionToDownload: 'latest'
         downloadType: 'specific'
         downloadPath: '$(System.ArtifactStagingDirectory)'
+    - task: ArchiveFiles@2
+      inputs:
+        displayName: "Archive files" 
+        rootFolderOrFile: "$(System.ArtifactStagingDirectory)"  
+        includeRootFolder: false
+        archiveFile: "$(System.ArtifactStagingDirectory)/build$(Build.BuildId).zip"    
 
     - task: AzureFunctionApp@2
       inputs:
