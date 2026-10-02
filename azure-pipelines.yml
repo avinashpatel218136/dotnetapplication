@@ -47,6 +47,6 @@ stages:
       inputs:
         connectedServiceNameARM: 'Azure subscription 1(f4fb6362-0022-4285-bea3-8447ee34fc97)'
         appType: 'functionApp'
-        appName: 'First-AzureFuntion'
+        appName: 'First-AzureFuntion1'
         package: '$(System.ArtifactStagingDirectory)/**/*.zip'
-        deploymentMethod: 'auto'
+        deploymentMethod: 'zipDeploy'
